@@ -1,0 +1,76 @@
+<center>
+  <nav>
+    <a href="index.html">primera</a>
+    <a href="segunda_practica.html">segunda</a>
+    <a href="tercera_practica.html">tercera</a>
+    <a href="cuarta_practica.html">cuarta</a>
+    <a href="quinta_practica.html">quinta</a>
+
+  </nav>
+<body>
+    <h2>Counter</h2>
+    
+    <p id="count" style="font-size:40px;">0</p>
+    <p id="status"></p>
+    
+    <button onclick="increaseCount()">+</button>
+    <button onclick="decreaseCount()">-</button>
+    <button onclick="resetCount()">Reset</button>
+    <button onclick="saveCount()">Save</button>
+    <button onclick="loadCount()">Load</button>
+    
+    <script>
+    // Declarar el contador
+    let count = 0;
+    
+    // Mostrar contador
+    function updateCount() {
+      document.getElementById("count").innerHTML = count;
+    
+      // Mensajes simples según el valor
+      if (count > 0) {
+        document.getElementById("status").innerHTML = "Vas subiendo 🚀";
+      } else if (count < 0) {
+        document.getElementById("status").innerHTML = "Estás en negativo ⚠️";
+      } else {
+        document.getElementById("status").innerHTML = "En cero 😐";
+      }
+    }
+    
+    // Aumentar
+    function increaseCount() {
+      count++;
+      updateCount();
+    }
+    
+    // Disminuir
+    function decreaseCount() {
+      count--;
+      updateCount();
+    }
+    
+    // Reset
+    function resetCount() {
+      count = 0;
+      updateCount();
+    }
+    
+    // Guardar
+    function saveCount() {
+      localStorage.setItem("count", count);
+      document.getElementById("status").innerHTML = "Guardado ✔";
+    }
+    
+    // Cargar
+    function loadCount() {
+      let saved = localStorage.getItem("count");
+      if (saved !== null) {
+        count = Number(saved);
+      }
+      updateCount();
+    }
+    </script>
+    
+    </body>
+    </html>
+    </center>

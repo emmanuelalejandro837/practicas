@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+
+<html>
+    <center>
+        <nav>
+            <a href="index.html">primera</a>
+            <a href="segunda_practica.html">segunda</a>
+            <a href="tercera_practica.html">tercera</a>
+            <a href="cuarta_practica.html">cuarta</a>
+            <a href="quinta_practica.html">quinta</a>
+        
+          </nav>
+<body>
+
+<h1>Lista de Tareas</h1>
+
+<input id="task" placeholder="Nueva tarea">
+<button onclick="addTask()">Agregar</button>
+
+<ul id="list"></ul>
+
+<button onclick="clearAll()">Borrar todo</button>
+
+<script>
+let tasks = [];
+
+// Cargar tareas al iniciar
+loadTasks();
+
+function renderTasks() {
+  let list = document.getElementById("list");
+  list.innerHTML = "";
+
+  tasks.forEach((task, index) => {
+    let li = document.createElement("li");
+
+    li.innerHTML = `
+      <span onclick="toggleTask(${index})">
+        ${task.done ? "✔️ " : ""}${task.text}
+      </span>
+      <button onclick="deleteTask(${index})">X</button>
+    `;
+
+    list.appendChild(li);
+  });
+}
+
+function addTask() {
+  let input = document.getElementById("task");
+  let text = input.value.trim();
+
+  if (text === "") return;
+
+  tasks.push({ text: text, done: false });
+
+  input.value = "";
+  saveTasks();
+  renderTasks();
+}
+
+function deleteTask(index) {
+  tasks.splice(index, 1);
+  saveTasks();
+  renderTasks();
+}
+
+function toggleTask(index) {
+  tasks[index].done = !tasks[index].done;
+  saveTasks();
+  renderTasks();
+}
+
+function clearAll() {
+  tasks = [];
+  saveTasks();
+  renderTasks();
+}
+
+function saveTasks() {
+  localStorage.setItem("tasks", JSON.stringify(tasks));
+}
+
+function loadTasks() {
+  let saved = localStorage.getItem("tasks");
+  if (saved) {
+    tasks = JSON.parse(saved);
+  }
+  renderTasks();
+}
+</script>
+</center>
+</body>
+</html>

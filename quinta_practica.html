@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+    <nav>
+        <a href="index.html">primera</a>
+        <a href="segunda_practica.html">segunda</a>
+        <a href="tercera_practica.html">tercera</a>
+        <a href="cuarta_practica.html">cuarta</a>
+        <a href="quinta_practica.html">quinta</a>
+    
+      </nav>
+<style>
+input {
+  padding: 8px;
+  width: 260px;
+  margin-bottom: 4px;
+}
+.error {
+  color: red;
+  margin: 0;
+  font-style: italic;
+}
+.ok {
+  color: green;
+  margin: 0;
+  font-weight: bold;
+}
+.field {
+  margin-bottom: 12px;
+}
+#passwordStrength {
+  margin: 0;
+  font-size: 12px;
+}
+</style>
+<body>
+
+<h1>¡Únete a la Aventura! 🌟</h1>
+
+<form id="signupForm">
+
+<div class="field">
+  <label>Nombre:</label><br>
+  <input id="name" type="text" placeholder="Tu nombre">
+  <p id="nameError" class="error"></p>
+</div>
+
+<div class="field">
+  <label>Email:</label><br>
+  <input id="email" type="text" placeholder="nombre@ejemplo.com">
+  <p id="emailError" class="error"></p>
+</div>
+
+<div class="field">
+  <label>Contraseña:</label><br>
+  <input id="password" type="password" placeholder="Mínimo 8 caracteres">
+  <p id="passwordError" class="error"></p>
+  <p id="passwordStrength"></p>
+</div>
+
+<div class="field">
+  <label>Repetir Contraseña:</label><br>
+  <input id="confirm" type="password" placeholder="Repite tu contraseña">
+  <p id="confirmError" class="error"></p>
+</div>
+
+<p><button type="submit">Registrarme 🚀</button></p>
+
+</form>
+
+<p id="result"></p>
+
+<script>
+const form = document.getElementById("signupForm");
+const nameInput = document.getElementById("name");
+const emailInput = document.getElementById("email");
+const passInput = document.getElementById("password");
+const confirmInput = document.getElementById("confirm");
+const nameError = document.getElementById("nameError");
+const emailError = document.getElementById("emailError");
+const passError = document.getElementById("passwordError");
+const confirmError = document.getElementById("confirmError");
+const passwordStrength = document.getElementById("passwordStrength");
+const result = document.getElementById("result");
+
+function showError(el, msg) { el.innerHTML = msg; }
+function clearError(el) { el.innerHTML = ""; }
+
+function validateName() {
+  let val = nameInput.value.trim();
+  if (val.length < 2) { showError(nameError, "Tu nombre es muy corto 😅"); return false; }
+  clearError(nameError);
+  return true;
+}
+
+function validateEmail() {
+  let val = emailInput.value.trim();
+  if (!(/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val))) { showError(emailError, "Ese email no es válido 🤔"); return false; }
+  clearError(emailError);
+  return true;
+}
+
+function validatePassword() {
+  let val = passInput.value;
+  if (val.length < 8) { showError(passError, "¡Muy corta! mínimo 8 caracteres 🔒"); return false; }
+  clearError(passError);
+  // Fuerza de la contraseña
+  if (val.length < 10) passwordStrength.innerHTML = "🔹 Débil";
+  else if (val.length < 14) passwordStrength.innerHTML = "🔹 Media";
+  else passwordStrength.innerHTML = "🔹 Fuerte 💪";
+  return true;
+}
+
+function validateConfirm() {
+  let pass = passInput.value;
+  let confirm = confirmInput.value;
+  if (confirm === "") { showError(confirmError, "¡Confirma tu contraseña!"); return false; }
+  if (confirm !== pass) { showError(confirmError, "No coinciden 😬"); return false; }
+  clearError(confirmError);
+  return true;
+}
+
+function validateForm() {
+  let okName = validateName();
+  let okEmail = validateEmail();
+  let okPass = validatePassword();
+  let okConfirm = validateConfirm();
+  return okName && okEmail && okPass && okConfirm;
+}
+
+// Validación en tiempo real
+nameInput.addEventListener("input", validateName);
+emailInput.addEventListener("input", validateEmail);
+passInput.addEventListener("input", validatePassword);
+confirmInput.addEventListener("input", validateConfirm);
+
+form.addEventListener("submit", function(e) {
+  e.preventDefault();
+  result.innerHTML = "";
+  if (validateForm()) {
+    result.innerHTML = "🎉 ¡Registro exitoso!";
+    result.className = "ok";
+  } else {
+    result.innerHTML = "⚠️ Corrige los errores antes de continuar";
+    result.className = "error";
+  }
+});
+</script>
+
+</body>
+</html>

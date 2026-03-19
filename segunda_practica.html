@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+    <nav>
+        <a href="index.html">primera</a>
+        <a href="segunda_practica.html">segunda</a>
+        <a href="tercera_practica.html">tercera</a>
+        <a href="cuarta_practica.html">cuarta</a>
+        <a href="quinta_practica.html">quinta</a>
+    
+      </nav>
+<body style="font-family: Arial; text-align:center;">
+
+<h1>Contador con estilo 🎯</h1>
+
+<p id="count" style="font-size:50px;">0</p>
+<p id="mensaje"></p>
+
+<button onclick="increaseCount()">+</button>
+<button onclick="decreaseCount()">-</button>
+<button onclick="resetCount()">Reset</button>
+<button onclick="saveCount()">Guardar</button>
+<button onclick="loadCount()">Cargar</button>
+
+<script>
+let count = 0;
+
+loadCount();
+
+function updateCount() {
+  let contador = document.getElementById("count");
+  let mensaje = document.getElementById("mensaje");
+
+  contador.innerHTML = count;
+
+  if (count === 0) {
+    contador.style.color = "gray";
+    mensaje.innerHTML = "Empezando 😌";
+  } 
+  else if (count < 50) {
+    contador.style.color = "blue";
+    mensaje.innerHTML = "Sigue así 💪";
+  } 
+  else if (count < 100) {
+    contador.style.color = "orange";
+    mensaje.innerHTML = "¡Vas muy bien! 🔥";
+  } 
+  else {
+    contador.style.color = "green";
+    mensaje.innerHTML = "¡Nivel alto! 🚀";
+
+    document.body.style.backgroundColor = "#d4ffd4";
+    setTimeout(() => {
+      document.body.style.backgroundColor = "white";
+    }, 300);
+  }
+}
+
+function increaseCount() {
+  count++;
+  updateCount();
+}
+
+function decreaseCount() {
+  if (count > 0) {
+    count--;
+    updateCount();
+  }
+}
+
+function resetCount() {
+  count = 0;
+  updateCount();
+}
+
+function saveCount() {
+  localStorage.setItem("count", count);
+  alert("Guardado 💾");
+}
+
+function loadCount() {
+  let saved = localStorage.getItem("count");
+  if (saved !== null) {
+    count = Number(saved);
+  }
+  updateCount();
+}
+</script>
+
+</body>
+</html>

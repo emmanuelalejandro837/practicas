@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+    <center>
+    <nav>
+        <a href="index.html">primera</a>
+        <a href="segunda_practica.html">segunda</a>
+        <a href="tercera_practica.html">tercera</a>
+        <a href="cuarta_practica.html">cuarta</a>
+        <a href="quinta_practica.html">quinta</a>
+    
+      </nav>
+    </center>
+      <center>
+        <h1>Proyecto JavaScript</h1>
+        <h2>Modal</h2>
+      
+        <button id="openBtn">Presióname</button>
+      </center>
+      
+      <div id="modal" style="display:none; position:fixed; left:0; top:0; width:100%; height:100%; background:rgba(0,0,0,0.5);">
+      
+        <center>
+          <div style="background:white; width:300px; margin-top:150px; padding:20px; position:relative;">
+            
+            <button id="closeBtn" style="position:absolute; right:10px; top:5px;">×</button>
+      
+            <h3>¡Hola!</h3>
+            <p>Este es el modal</p>
+      
+          </div>
+        </center>
+      
+      </div>
+      
+      <script>
+      let modal = document.getElementById("modal");
+      let openBtn = document.getElementById("openBtn");
+      let closeBtn = document.getElementById("closeBtn");
+      
+      openBtn.onclick = () => {
+        modal.style.display = "block";
+      };
+      
+      closeBtn.onclick = () => {
+        modal.style.display = "none";
+      };
+      </script>
+      
+      </body>
+      </html>
